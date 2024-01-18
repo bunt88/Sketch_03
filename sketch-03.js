@@ -15,7 +15,7 @@ const settings = {
 const sketch = ({ context, width, height }) => {
   const agents = [];
 
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 60; i++) {
     const x = random.range(0, width);
     const y = random.range(0, height);
 
@@ -23,7 +23,7 @@ const sketch = ({ context, width, height }) => {
   }
 
   return ({ context, width, height }) => {
-    context.fillStyle = 'white';
+    context.fillStyle = 'black';
     context.fillRect(0, 0, width, height);
 
     for (let i = 0; i < agents.length; i++) {
@@ -42,6 +42,7 @@ const sketch = ({ context, width, height }) => {
         context.moveTo(agent.pos.x, agent.pos.y);
         context.lineTo(other.pos.x, other.pos.y);
         context.stroke();
+        context.strokeStyle = 'white';
       }
     }
 
@@ -105,7 +106,8 @@ class Agent {
   }
 
   draw(context) {
-    // context.fillStyle = 'black';
+    context.strokeStyle = 'darkred';
+    context.fillStyle = 'red';
 
     context.save();
     context.translate(this.pos.x, this.pos.y);
