@@ -1,19 +1,34 @@
 const canvasSketch = require('canvas-sketch');
+const random = require('canvas-sketch-util/random');
 
 const settings = {
   dimensions: [ 1080, 1080 ]
 };
 
-const sketch = () => {
+const sketch = ({ context, width, height }) => {
   const agents = [];
+
+  for (let i = 0; i < 40; i++) {
+    const x = random.range(0, width);
+    const y = randome.range(0, height);
+
+    agents.push(new Agent(x, y));
+  }
 
   return ({ context, width, height }) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
+    agents.forEach(agent => {
+      agent.draw(context);
+    })
 
-    const agentA = new Agent(800, 400);
-    const agentB = new Agent(300, 700);
+    // const agentA = new Agent(800, 400);
+    // const agentB = new Agent(300, 700);
+
+    // agentA.draw(context);
+    // agentB.draw(context);
+    
 
     // context.beginPath();
     // context.arc(pointA.x, pointA.y, pointA.radius, 0, Math.PI * 2);
@@ -24,8 +39,6 @@ const sketch = () => {
     // context.arc(pointB.x, pointB.y, pointB.radius, 0, Math.PI * 2);
     // context.fillStyle = 'red';
     // context.fill();
-    agentA.draw(context);
-    agentB.draw(context);
     
   };
 };
@@ -48,7 +61,7 @@ class Agent {
 
   draw(context) {
     context.fillStyle = 'black';
-    
+
     context.beginPath();
     context.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2);
     context.fill();
